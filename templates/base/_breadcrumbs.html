@@ -1,0 +1,18 @@
+{% if items %}
+  <nav aria-label="Хлібні крихти" class="breadcrumbs">
+    {% for item in items %}
+      {% if not forloop.last %}
+        <span class="breadcrumbs__item">
+          {% if item.1 %}
+            <a href="{{ item.1 }}">{{ item.0 }}</a>
+          {% else %}
+            <span>{{ item.0 }}</span>
+          {% endif %}
+          <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+        </span>
+      {% else %}
+        <span class="breadcrumbs__current" aria-current="page">{{ item.0 }}</span>
+      {% endif %}
+    {% endfor %}
+  </nav>
+{% endif %}

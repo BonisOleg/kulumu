@@ -1,0 +1,34 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format %}
+
+{% block title %}Замовлення №{{ order.pk }} прийнято | Kylymy{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap">
+    <div class="order-success order-confirmation"
+         data-order-id="{{ order.pk }}"
+         data-order-value="{{ order.total_uah }}">
+      <span class="material-symbols-outlined order-success__icon">check_circle</span>
+      <h1 class="order-success__title">Дякуємо за замовлення!</h1>
+      <p class="text-muted order-success__subtitle">
+        Ваше замовлення <strong>#{{ order.pk }}</strong> прийнято.
+        Менеджер зателефонує вам найближчим часом для підтвердження.
+      </p>
+
+      {% if order.email %}
+        <p class="text-muted order-success__email-note">
+          Підтвердження надіслано на {{ order.email }}
+        </p>
+      {% endif %}
+
+      <div class="order-success__actions">
+        <a href="/" class="btn btn-primary">На головну</a>
+        <a href="{% url 'catalog:section' 'kylymy' %}" class="btn btn-secondary">Продовжити покупки</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

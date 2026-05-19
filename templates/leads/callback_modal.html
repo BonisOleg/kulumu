@@ -1,0 +1,42 @@
+{% load static %}
+<div id="callback-modal"
+     class="modal"
+     role="dialog" aria-modal="true" aria-labelledby="callback-modal-title">
+  <div class="modal-overlay" data-modal-close></div>
+
+  <div class="modal__dialog">
+    <button type="button" class="modal__close" data-modal-close aria-label="Закрити">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <h2 id="callback-modal-title" class="modal__title">Замовити дзвінок</h2>
+    <p class="text-muted text-sm modal__subtitle">Наш менеджер зателефонує вам протягом 30 хвилин у робочий час</p>
+
+    <form hx-post="{% url 'leads:callback' %}"
+          hx-target="#callback-modal"
+          hx-swap="outerHTML"
+          class="stack">
+      {% csrf_token %}
+      <input type="hidden" name="page_url">
+
+      <div class="form-group">
+        <label class="form-label" for="cb-name">Ім'я</label>
+        <input type="text" id="cb-name" name="name" class="input" placeholder="Іван" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="cb-phone">Телефон</label>
+        <input type="tel" id="cb-phone" name="phone" class="input" placeholder="+380 63 000 00 00" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">
+        <span class="material-symbols-outlined">phone</span>
+        Замовити дзвінок
+      </button>
+
+      <p class="text-xs text-muted text-center">
+        Надсилаючи заявку, ви погоджуєтесь з <a href="{% url 'content:page' 'privacy' %}" class="text-accent">політикою конфіденційності</a>
+      </p>
+    </form>
+  </div>
+</div>

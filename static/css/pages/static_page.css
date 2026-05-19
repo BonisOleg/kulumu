@@ -1,0 +1,52 @@
+/*
+ * static_page.css — стилі для статичних сторінок та стану «контент відсутній»
+ * Mobile-first, iOS Safari safe
+ */
+
+.page-placeholder {
+  max-width: 560px;
+  padding: var(--sp-10) 0 var(--sp-12);
+}
+
+.page-placeholder__title {
+  font-family: var(--ff-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  color: var(--c-text);
+  margin-bottom: var(--sp-4);
+}
+
+.page-placeholder__text {
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text-secondary);
+}
+
+.page-placeholder__text a {
+  color: var(--c-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page-placeholder__text a:hover {
+  color: var(--c-accent-dark);
+}
+
+@media (min-width: 600px) {
+  .page-placeholder {
+    padding: var(--sp-12) 0;
+  }
+
+  .page-placeholder__title {
+    margin-bottom: var(--sp-5);
+  }
+}
+
+.static-article {
+  max-width: 800px;
+}
+
+.static-article__title {
+  margin-bottom: var(--sp-6);
+}

@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format kylymy_seo %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/catalog.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      {% for name, url in breadcrumbs %}
+        {% if not forloop.last %}
+          <span class="breadcrumbs__item">
+            <a href="{{ url }}">{{ name }}</a>
+            <span class="breadcrumbs__sep" aria-hidden="true">/</span>
+          </span>
+        {% else %}
+          <span class="breadcrumbs__current" aria-current="page">{{ name }}</span>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <h1 class="catalog-title">{{ page_title }}</h1>
+
+    <div class="layout-catalog">
+      <aside class="sidebar-sticky">
+        <form id="filter-form"
+              hx-get="{% url 'catalog:htmx_filter' section.slug %}"
+              hx-trigger="submit, change from:input delay:300ms, input from:.price-range__input delay:700ms, change from:select delay:300ms"
+              hx-target="#products-area"
+              hx-swap="innerHTML"
+              hx-indicator="#filter-loader">
+          {% include "catalog/partials/filter_sidebar.html" %}
+        </form>
+      </aside>
+
+      <div class="products-area-wrap">
+        <div id="filter-loader" class="htmx-indicator filter-loader">
+          <span class="material-symbols-outlined filter-loader__icon">autorenew</span>
+        </div>
+        <div id="products-area">
+          {% include "catalog/partials/product_grid.html" %}
+        </div>
+      </div>
+    </div>
+
+    {% if facet1.seo_text %}
+      <div class="rich-text catalog-seo-text">
+        {{ facet1.seo_text|safe }}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

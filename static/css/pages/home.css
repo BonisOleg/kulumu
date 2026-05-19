@@ -1,0 +1,90 @@
+/*
+ * home.css — стилі головної сторінки
+ * BEM + CSS custom properties; без !important
+ */
+
+/* --- Hero --- */
+.home-hero {
+  background: linear-gradient(135deg, var(--c-bg-alt) 0%, var(--c-surface) 100%);
+}
+
+.home-hero__inner {
+  text-align: center;
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+.home-hero__title {
+  margin-bottom: var(--sp-4);
+}
+
+.home-hero__subtitle {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--sp-6);
+}
+
+.home-hero__actions {
+  display: flex;
+  gap: var(--sp-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- Section grid (Що вас цікавить?) --- */
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 180px));
+  justify-content: center;
+  gap: var(--sp-4);
+}
+
+.section-card__icon {
+  font-size: 36px;
+  color: var(--c-accent);
+}
+
+.section-card__label {
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+}
+
+/* --- Section heading row (заголовок + посилання) --- */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+}
+
+.section-heading--center {
+  text-align: center;
+  margin-bottom: var(--sp-5);
+}
+
+/* --- Background variant --- */
+.bg-alt {
+  background: var(--c-bg-alt);
+}
+
+/* --- USP grid --- */
+.usp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+  justify-content: center;
+  gap: var(--sp-5);
+}
+
+.usp-item {
+  text-align: center;
+}
+
+.usp-item__icon {
+  font-size: 40px;
+  color: var(--c-accent);
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+.usp-item__title {
+  margin-bottom: var(--sp-2);
+}

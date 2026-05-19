@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% load static kylymy_seo %}
+
+{% block title %}{{ article.seo_title|default:article.title }} — Kylymy{% endblock %}
+{% block description %}{{ article.seo_description|default:article.excerpt }}{% endblock %}
+
+{% block og_type %}article{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/content.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <span class="breadcrumbs__item"><a href="/">Головна</a><span class="breadcrumbs__sep">/</span></span>
+      <span class="breadcrumbs__item"><a href="{% url 'content:article_list' %}">Блог</a><span class="breadcrumbs__sep">/</span></span>
+      <span class="breadcrumbs__current" aria-current="page">{{ article.title }}</span>
+    </nav>
+
+    <article class="article-body">
+      {% if article.cover %}
+        <picture>
+          <img src="{{ article.cover.url }}" alt="{{ article.title }}"
+               width="800" height="450"
+               class="article-cover"
+               fetchpriority="high">
+        </picture>
+      {% endif %}
+
+      <header>
+        {% if article.category %}
+          <a href="{% url 'content:article_list' %}" class="text-sm article-category-link">{{ article.category.name }}</a>
+        {% endif %}
+        <h1 class="article-title">{{ article.title }}</h1>
+        {% if article.published_at %}
+          <time datetime="{{ article.published_at|date:'Y-m-d' }}" class="text-sm text-muted">
+            {{ article.published_at|date:"d.m.Y" }}
+          </time>
+        {% endif %}
+      </header>
+
+      <div class="rich-text article-content">
+        {{ article.body|safe }}
+      </div>
+
+      {% if article.related_series.exists %}
+        <section class="article-section">
+          <h2 class="article-section__title">Товари за темою</h2>
+          <div class="product-grid">
+            {% for series in article.related_series.all|slice:":6" %}
+              {% include "catalog/partials/product_card.html" with series=series %}
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+    </article>
+
+    {% if related_articles %}
+      <section class="related-articles">
+        <h2 class="related-articles__title">Схожі статті</h2>
+        <div class="related-articles__grid">
+          {% for a in related_articles %}
+            <a href="{{ a.get_absolute_url }}" class="related-article-card">
+              <h3 class="related-article-card__title">{{ a.title }}</h3>
+              <p class="text-sm text-muted related-article-card__excerpt">{{ a.excerpt|truncatechars:100 }}</p>
+            </a>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </div>
+
+{% endblock %}

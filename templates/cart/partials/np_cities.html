@@ -1,0 +1,12 @@
+{% if cities %}
+  <div class="np-dropdown">
+    {% for city in cities %}
+      <button type="button"
+              class="np-dropdown__item"
+              data-np-city-name="{{ city.name }}"
+              data-np-city-ref="{{ city.ref }}">
+        {{ city.name }}
+      </button>
+    {% endfor %}
+  </div>
+{% endif %}

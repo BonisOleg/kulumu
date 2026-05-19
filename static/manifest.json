@@ -1,0 +1,21 @@
+{
+  "name": "Kylymy — інтернет-магазин килимів",
+  "short_name": "Kylymy",
+  "description": "Купити килим в Україні. Понад 5000 моделей, доставка Новою Поштою.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafaf7",
+  "theme_color": "#b48a5e",
+  "icons": [
+    {
+      "src": "/static/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

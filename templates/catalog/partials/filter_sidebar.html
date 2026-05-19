@@ -1,0 +1,131 @@
+<div class="filter-sidebar">
+  <div class="filter-sidebar__title">Фільтр</div>
+
+  {# Зберігаємо sort між HTMX-запитами #}
+  {% if catalog_filter.sort != "default" %}
+    <input type="hidden" name="sort" value="{{ catalog_filter.sort }}">
+  {% endif %}
+
+  {% comment %}Hidden inputs для path-фасетів типів, яких немає у видимих групах (size, color, manufacturer та ін.) — щоб не загубились при HTMX{% endcomment %}
+  {% for type_key, facets in facets_by_type.items %}
+    {% if type_key != "category" and type_key != "purpose" and type_key != "style" and type_key != "form" %}
+      {% for facet in facets %}
+        {% if facet.slug in catalog_filter.facet_slugs %}
+          <input type="hidden" name="f" value="{{ facet.slug }}">
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+
+  {# Активні фільтри — chips #}
+  {% with active_slugs=catalog_filter.facet_slugs %}
+    {% if active_slugs or catalog_filter.price_min or catalog_filter.price_max %}
+      <div class="filter-active-chips">
+        {% for facets in facets_by_type.values %}
+          {% for facet in facets %}
+            {% if facet.slug in active_slugs %}
+              <button type="button" class="filter-chip"
+                      data-remove-filter="f"
+                      data-remove-value="{{ facet.slug }}">
+                {{ facet.name }}&nbsp;×
+              </button>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% if catalog_filter.price_min %}
+          <button type="button" class="filter-chip"
+                  data-remove-filter="price_min">
+            від {{ catalog_filter.price_min }} ₴&nbsp;×
+          </button>
+        {% endif %}
+        {% if catalog_filter.price_max %}
+          <button type="button" class="filter-chip"
+                  data-remove-filter="price_max">
+            до {{ catalog_filter.price_max }} ₴&nbsp;×
+          </button>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {# Тип / матеріал #}
+  {% if facets_by_type.category %}
+    <div class="filter-group">
+      <span class="filter-group__label">Тип килима</span>
+      <div class="filter-checkbox-list">
+        {% for facet in facets_by_type.category %}
+          <label class="filter-checkbox">
+            <input type="checkbox" name="f" value="{{ facet.slug }}"
+              {% if facet.slug in catalog_filter.facet_slugs %}checked{% endif %}>
+            {{ facet.name }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Призначення #}
+  {% if facets_by_type.purpose %}
+    <div class="filter-group">
+      <span class="filter-group__label">Кімната</span>
+      <div class="filter-checkbox-list">
+        {% for facet in facets_by_type.purpose %}
+          <label class="filter-checkbox">
+            <input type="checkbox" name="f" value="{{ facet.slug }}"
+              {% if facet.slug in catalog_filter.facet_slugs %}checked{% endif %}>
+            {{ facet.name }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Стиль #}
+  {% if facets_by_type.style %}
+    <div class="filter-group">
+      <span class="filter-group__label">Стиль</span>
+      <div class="filter-checkbox-list">
+        {% for facet in facets_by_type.style %}
+          <label class="filter-checkbox">
+            <input type="checkbox" name="f" value="{{ facet.slug }}"
+              {% if facet.slug in catalog_filter.facet_slugs %}checked{% endif %}>
+            {{ facet.name }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Форма #}
+  {% if facets_by_type.form %}
+    <div class="filter-group">
+      <span class="filter-group__label">Форма</span>
+      <div class="filter-checkbox-list">
+        {% for facet in facets_by_type.form %}
+          <label class="filter-checkbox">
+            <input type="checkbox" name="f" value="{{ facet.slug }}"
+              {% if facet.slug in catalog_filter.facet_slugs %}checked{% endif %}>
+            {{ facet.name }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Ціна #}
+  <div class="filter-group">
+    <span class="filter-group__label">Ціна, ₴</span>
+    <div class="price-range">
+      <input type="number" name="price_min" class="price-range__input"
+             placeholder="від" min="0" inputmode="numeric"
+             value="{{ catalog_filter.price_min|default:'' }}">
+      <span class="price-range__sep">—</span>
+      <input type="number" name="price_max" class="price-range__input"
+             placeholder="до" min="0" inputmode="numeric"
+             value="{{ catalog_filter.price_max|default:'' }}">
+    </div>
+  </div>
+
+  {# Скидання #}
+  <a href="?" class="btn btn-ghost btn-sm filter-reset-btn">Скинути фільтри</a>
+</div>

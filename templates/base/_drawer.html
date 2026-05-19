@@ -1,0 +1,47 @@
+{% load static %}
+<div class="drawer-overlay" role="presentation"></div>
+
+<nav class="drawer" role="navigation" aria-label="Мобільна навігація">
+  <div class="drawer__inner">
+    <div class="drawer__header">
+      <a href="/" class="header__logo">Kylym<span class="header__logo-accent">y</span></a>
+      <button class="drawer__close" data-drawer-close aria-label="Закрити меню" type="button">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="drawer__nav">
+      {% for section in sections %}
+        <a href="{{ section.get_absolute_url }}" class="drawer__nav-link" data-drawer-close>
+          {% if section.icon_name %}
+            <span class="material-symbols-outlined drawer__nav-icon">{{ section.icon_name }}</span>
+          {% endif %}
+          {{ section.name }}
+        </a>
+      {% endfor %}
+
+      <hr class="drawer__divider">
+
+      <a href="{% url 'content:article_list' %}" class="drawer__nav-link" data-drawer-close>
+        <span class="material-symbols-outlined drawer__nav-icon">article</span>
+        Блог
+      </a>
+      <a href="{% url 'content:faq' %}" class="drawer__nav-link" data-drawer-close>
+        <span class="material-symbols-outlined drawer__nav-icon">help_outline</span>
+        Питання і відповіді
+      </a>
+      <a href="{% url 'content:page' 'delivery' %}" class="drawer__nav-link" data-drawer-close>
+        <span class="material-symbols-outlined drawer__nav-icon">local_shipping</span>
+        Доставка та оплата
+      </a>
+    </div>
+
+    <div class="drawer__contact">
+      <a href="tel:{{ site_settings.phone }}" class="drawer__phone">
+        <span class="material-symbols-outlined">phone</span>
+        {{ site_settings.phone_display }}
+      </a>
+      <p class="drawer__workhours">{{ site_settings.work_hours }}</p>
+    </div>
+  </div>
+</nav>

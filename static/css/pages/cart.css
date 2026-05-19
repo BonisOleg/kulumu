@@ -1,0 +1,82 @@
+/*
+ * pages/cart.css — кошик, checkout, success
+ */
+
+/* Cart page */
+.cart-page-title {
+  margin-bottom: var(--sp-6);
+}
+
+/* Checkout */
+.checkout-title {
+  margin-bottom: var(--sp-6);
+}
+
+.checkout-layout {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+.checkout-form {
+  max-width: 540px;
+}
+
+.checkout-np-wrap {
+  position: relative;
+}
+
+/* Order summary */
+.order-summary {
+  margin-top: var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--c-bg-alt);
+  border-radius: var(--r-md);
+}
+
+.order-summary__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+}
+
+.order-summary__total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+}
+
+/* Success page */
+.order-success {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.order-success__icon {
+  font-size: 80px;
+  color: var(--c-success);
+  display: block;
+  margin-bottom: var(--sp-5);
+}
+
+.order-success__title {
+  margin-bottom: var(--sp-3);
+}
+
+.order-success__subtitle {
+  font-size: var(--fs-lg);
+}
+
+.order-success__email-note {
+  margin-top: var(--sp-3);
+}
+
+.order-success__actions {
+  margin-top: var(--sp-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: center;
+}

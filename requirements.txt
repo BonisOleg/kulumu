@@ -1,0 +1,2 @@
+# Render.com та інші PaaS: кореневий requirements.txt
+-r requirements/prod.txt

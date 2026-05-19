@@ -1,0 +1,41 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "DJ", "SIM", "TCH"]
+ignore = ["DJ001"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "migrations",
+    ".venv",
+    "venv",
+]
+
+[tool.ruff.per-file-ignores]
+"*/settings/*.py" = ["E501"]
+"*/tests/*.py" = ["N803", "N806", "SIM117"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+exclude = "migrations"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "kylymy.settings.dev"
+python_files = "tests/*.py test_*.py *_test.py"
+addopts = "--cov=apps --cov-report=term-missing --cov-fail-under=0 -v"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.djlint]
+profile = "django"
+indent = 2
+max_line_length = 120
+ignore = "H006,H030,H031"
+
+[tool.coverage.run]
+source = ["apps"]
+omit = ["*/tests/*", "*/migrations/*", "*/management/*"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"

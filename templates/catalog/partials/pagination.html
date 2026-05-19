@@ -1,0 +1,42 @@
+{% load kylymy_format %}
+{% if page_obj.has_previous or page_obj.has_next %}
+  <nav class="pagination" aria-label="Пагінація">
+
+    {% if page_obj.has_previous %}
+      <a href="{% url_with_page page_obj.previous_page_number %}"
+         class="pagination__btn" aria-label="Попередня сторінка">
+        <span class="material-symbols-outlined pagination__icon">chevron_left</span>
+      </a>
+    {% endif %}
+
+    {% with cur=page_obj.number total=page_obj.paginator.num_pages %}
+      {% if cur > 3 %}
+        <a href="{% url_with_page 1 %}" class="pagination__btn">1</a>
+        {% if cur > 4 %}<span class="pagination__ellipsis">…</span>{% endif %}
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if num >= cur|add:"-2" and num <= cur|add:"2" %}
+          {% if cur == num %}
+            <span class="pagination__btn active" aria-current="page">{{ num }}</span>
+          {% else %}
+            <a href="{% url_with_page num %}" class="pagination__btn">{{ num }}</a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if cur < total|add:"-2" %}
+        {% if cur < total|add:"-3" %}<span class="pagination__ellipsis">…</span>{% endif %}
+        <a href="{% url_with_page total %}" class="pagination__btn">{{ total }}</a>
+      {% endif %}
+    {% endwith %}
+
+    {% if page_obj.has_next %}
+      <a href="{% url_with_page page_obj.next_page_number %}"
+         class="pagination__btn" aria-label="Наступна сторінка">
+        <span class="material-symbols-outlined pagination__icon">chevron_right</span>
+      </a>
+    {% endif %}
+
+  </nav>
+{% endif %}

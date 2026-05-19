@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format %}
+
+{% block title %}Блог про килими — Kylymy{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/content.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <h1 class="article-list-title">Корисні статті про килими</h1>
+
+    <div class="article-grid">
+      {% for article in articles %}
+        <article class="article-card">
+          {% if article.cover %}
+            <a href="{{ article.get_absolute_url }}">
+              <img src="{{ article.cover.url }}" alt="{{ article.title }}" width="600" height="400"
+                   class="article-card__cover" loading="lazy">
+            </a>
+          {% endif %}
+          <div class="article-card__body">
+            {% if article.category %}
+              <span class="text-xs text-muted">{{ article.category.name }}</span>
+            {% endif %}
+            <h2 class="article-card__title">
+              <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+            </h2>
+            <p class="text-sm text-muted">{{ article.excerpt }}</p>
+            <a href="{{ article.get_absolute_url }}" class="btn btn-ghost btn-sm article-card__btn">
+              Читати далі →
+            </a>
+          </div>
+        </article>
+      {% empty %}
+        <p class="text-muted">Статті незабаром з'являться</p>
+      {% endfor %}
+    </div>
+
+    {% include "catalog/partials/pagination.html" %}
+  </div>
+{% endblock %}

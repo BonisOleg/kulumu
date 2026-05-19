@@ -1,0 +1,52 @@
+/*
+ * components/product_grid.css — сітка товарів (responsive без media query)
+ */
+
+.product-grid {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+@media (min-width: 480px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (min-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  .product-grid {
+    gap: var(--sp-5);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-grid {
+    gap: var(--sp-6);
+  }
+}
+
+.product-grid__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--sp-12) var(--sp-4);
+  color: var(--c-text-secondary);
+}
+
+.product-grid__empty-icon {
+  font-size: 64px;
+  color: var(--c-border-strong);
+  display: block;
+  margin-bottom: var(--sp-4);
+}
+
+.product-grid__count {
+  margin-top: var(--sp-3);
+}

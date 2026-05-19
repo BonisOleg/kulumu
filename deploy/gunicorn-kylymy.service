@@ -1,0 +1,19 @@
+[Unit]
+Description=Kylymy Gunicorn Application Server
+After=network.target postgresql.service redis.service
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/kylymy
+EnvironmentFile=/var/www/kylymy/.env
+ExecStart=/var/www/kylymy/.venv/bin/gunicorn kylymy.wsgi:application -c /var/www/kylymy/gunicorn.conf.py
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

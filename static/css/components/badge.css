@@ -1,0 +1,36 @@
+/*
+ * components/badge.css — бейджі товарів (Новинка, Топ, -15%)
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: var(--r-xs);
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.badge-new {
+  background: var(--c-badge-new);
+  color: #fff;
+}
+
+.badge-top {
+  background: var(--c-badge-top);
+  color: #fff;
+}
+
+.badge-discount {
+  background: var(--c-badge-discount);
+  color: #fff;
+}
+
+.badge-info {
+  background: var(--c-info);
+  color: #fff;
+}

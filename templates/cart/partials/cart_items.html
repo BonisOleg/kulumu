@@ -1,0 +1,56 @@
+{% load kylymy_format %}
+{% if items %}
+  {% for item in items %}
+    <div class="cart-item">
+      {% with img=item.variant.series.images.all.0 %}
+        {% if img %}
+          <img src="{{ img.image.url }}" alt="{{ item.variant.series.name }}"
+               class="cart-item__img" width="80" height="80">
+        {% endif %}
+      {% endwith %}
+
+      <div class="cart-item__body">
+        <a href="{{ item.variant.series.get_absolute_url }}" class="cart-item__name">
+          {{ item.variant.series.name }}
+        </a>
+        <p class="text-sm text-muted cart-item__meta">
+          {{ item.variant.color.name }} | {{ item.variant.size_display }}
+        </p>
+        {% if item.length_m %}
+          <p class="text-sm text-muted">{{ item.length_m }} пог.м</p>
+        {% endif %}
+      </div>
+
+      <div class="cart-item__actions">
+        <strong>{{ item.total|price }}</strong>
+        <form hx-post="{% url 'cart:remove' item.variant.pk %}"
+              hx-target="#cart-items"
+              hx-swap="innerHTML"
+              class="cart-item__form">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-ghost btn-sm cart-item__delete" aria-label="Видалити">
+            <span class="material-symbols-outlined cart-item__delete-icon">delete</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="cart-total">
+    <div>
+      <span class="text-muted">Загалом:</span>
+      <strong class="cart-total__sum">{{ total|price }}</strong>
+    </div>
+    <a href="{% url 'cart:checkout' %}" class="btn btn-primary btn-lg">
+      Оформити замовлення
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </a>
+  </div>
+{% else %}
+  <div class="cart-empty">
+    <span class="material-symbols-outlined cart-empty__icon">shopping_bag</span>
+    <h2>Кошик порожній</h2>
+    <p class="text-muted">Перейдіть до каталогу, щоб додати товари</p>
+    <a href="{% url 'catalog:section' 'kylymy' %}" class="btn btn-primary cart-empty__link">До каталогу</a>
+  </div>
+{% endif %}

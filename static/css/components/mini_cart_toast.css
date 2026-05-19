@@ -1,0 +1,28 @@
+/*
+ * components/mini_cart_toast.css — спливаюче повідомлення після додавання в кошик
+ */
+
+.mini-cart-toast {
+  position: fixed;
+  bottom: max(var(--sp-5), var(--safe-bottom));
+  right: var(--sp-5);
+  background: var(--c-text);
+  color: #fff;
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--r-md);
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  animation: slideUp 0.3s ease;
+}
+
+.mini-cart-toast__icon {
+  color: var(--c-success);
+}
+
+.mini-cart-toast__link {
+  color: var(--c-accent-light);
+  font-weight: var(--fw-semibold);
+  margin-left: var(--sp-2);
+}

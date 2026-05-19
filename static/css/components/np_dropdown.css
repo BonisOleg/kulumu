@@ -1,0 +1,32 @@
+/*
+ * components/np_dropdown.css — dropdown пропозицій Nova Poshta (міста, склади)
+ */
+
+.np-dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-md);
+  z-index: var(--z-dropdown);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.np-dropdown__item {
+  width: 100%;
+  text-align: left;
+  padding: var(--sp-3);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--fs-sm);
+  min-height: auto;
+  transition: background var(--t-fast);
+}
+
+.np-dropdown__item:hover {
+  background: var(--c-bg-alt);
+}

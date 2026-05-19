@@ -1,0 +1,101 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format kylymy_ui kylymy_seo %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+{% endblock %}
+
+{% block content %}
+  {# Hero section #}
+  <section class="section-gap home-hero">
+    <div class="container home-hero__inner">
+      <h1 class="home-hero__title">Купити килим в Україні</h1>
+      <p class="text-muted home-hero__subtitle">
+        Понад 5 000 моделей. Доставка Новою Поштою по всій Україні.
+        Безкоштовно від {{ site_settings.free_delivery_threshold|price }}.
+      </p>
+      <div class="home-hero__actions">
+        <a href="{% url 'catalog:section' 'kylymy' %}" class="btn btn-primary btn-lg">Переглянути каталог</a>
+        <button type="button" class="btn btn-secondary btn-lg" data-modal="callback">Замовити дзвінок</button>
+      </div>
+    </div>
+  </section>
+
+  {# Sections grid #}
+  <section class="section-gap-sm">
+    <div class="container">
+      <h2 class="section-heading--center">Що вас цікавить?</h2>
+      <div class="sections-grid">
+        {% for section in sections %}
+          <a href="{{ section.get_absolute_url }}" class="section-card">
+            {% if section.icon_name %}
+              <span class="material-symbols-outlined section-card__icon">{{ section.icon_name }}</span>
+            {% endif %}
+            <span class="section-card__label">{{ section.name }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {# Top series #}
+  {% if top_series %}
+    <section class="section-gap">
+      <div class="container">
+        <div class="section-header">
+          <h2>Популярні моделі</h2>
+          <a href="{% url 'catalog:section' 'kylymy' %}" class="btn btn-ghost btn-sm">Усі килими →</a>
+        </div>
+        <div class="product-grid">
+          {% for series in top_series %}
+            {% include "catalog/partials/product_card.html" with series=series %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# New arrivals #}
+  {% if new_series %}
+    <section class="section-gap bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Новинки</h2>
+          <a href="{% url 'catalog:section' 'kylymy' %}" class="btn btn-ghost btn-sm">Дивитись усі →</a>
+        </div>
+        <div class="product-grid">
+          {% for series in new_series %}
+            {% include "catalog/partials/product_card.html" with series=series %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# USP (переваги) #}
+  <section class="section-gap">
+    <div class="container">
+      <h2 class="section-heading--center">Чому вигідно купувати у Kylymy</h2>
+      <div class="usp-grid">
+        {% for usp in usp_items %}
+          <div class="usp-item">
+            <span class="material-symbols-outlined usp-item__icon">{{ usp.icon }}</span>
+            <h3 class="usp-item__title">{{ usp.title }}</h3>
+            <p class="text-muted text-sm">{{ usp.text }}</p>
+          </div>
+        {% empty %}
+          {% for usp in default_usp %}
+            <div class="usp-item">
+              <span class="material-symbols-outlined usp-item__icon">{{ usp.0 }}</span>
+              <h3 class="usp-item__title">{{ usp.1 }}</h3>
+              <p class="text-muted text-sm">{{ usp.2 }}</p>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load static %}
+<div class="mini-cart-toast"
+     data-toast-cart="{{ cart_count }}"
+     role="status" aria-live="polite">
+  <span class="material-symbols-outlined mini-cart-toast__icon">check_circle</span>
+  {{ message }}
+  <a href="{% url 'cart:cart' %}" class="mini-cart-toast__link">Кошик ({{ cart_count }})</a>
+</div>

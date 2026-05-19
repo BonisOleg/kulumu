@@ -1,0 +1,24 @@
+{% load static kylymy_format %}
+{% if series_list %}
+  <div class="product-grid" id="products-grid">
+    {% for series in series_list %}
+      {% include "catalog/partials/product_card.html" with series=series %}
+    {% endfor %}
+  </div>
+
+  {% if page_obj %}
+    {% include "catalog/partials/pagination.html" %}
+  {% endif %}
+
+  {% if total_count is not None %}
+    <p class="text-sm text-muted product-grid__count">
+      Показано {{ series_list|length }} з {{ total_count }} товарів
+    </p>
+  {% endif %}
+{% else %}
+  <div class="product-grid__empty">
+    <span class="material-symbols-outlined product-grid__empty-icon">search_off</span>
+    <h3>Товарів не знайдено</h3>
+    <p class="text-muted">Спробуйте змінити параметри фільтра</p>
+  </div>
+{% endif %}

@@ -1,0 +1,131 @@
+/*
+ * components/drawer.css — мобільне меню-drawer
+ * iOS scroll без лагів через -webkit-overflow-scrolling
+ */
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: var(--z-drawer);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--t-base), visibility var(--t-base);
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(320px, 90vw);
+  background: var(--c-surface);
+  z-index: calc(var(--z-drawer) + 1);
+  transform: translateX(-100%);
+  transition: transform var(--t-base);
+  padding-left: var(--safe-left);
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer__inner {
+  height: 100dvh;
+  height: var(--vh);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: var(--sp-4);
+  padding-top: max(var(--sp-5), var(--safe-top));
+  padding-bottom: max(var(--sp-6), var(--safe-bottom));
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+}
+
+.drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-sm);
+  color: var(--c-text-secondary);
+  transition: background var(--t-fast);
+}
+
+.drawer__close:hover {
+  background: var(--c-bg-alt);
+}
+
+.drawer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.drawer__nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3);
+  border-radius: var(--r-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-text);
+  transition: background var(--t-fast);
+  min-height: 48px;
+}
+
+.drawer__nav-link:hover {
+  background: var(--c-bg-alt);
+  color: var(--c-accent);
+}
+
+body.drawer-open {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+}
+
+.drawer__divider {
+  border: none;
+  border-top: 1px solid var(--c-border);
+  margin-block: var(--sp-3);
+}
+
+.drawer__nav-icon {
+  font-size: 20px;
+}
+
+.drawer__contact {
+  margin-top: var(--sp-5);
+}
+
+.drawer__phone {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-weight: var(--fw-semibold);
+  font-size: 1.1rem;
+  color: var(--c-accent);
+}
+
+.drawer__workhours {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+  margin-top: var(--sp-2);
+}
+
+.header__logo-accent {
+  color: var(--c-accent);
+}

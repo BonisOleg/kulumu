@@ -1,0 +1,13 @@
+{% load kylymy_format %}
+<div id="calc-result">
+  {% if variant %}
+    <p class="calc-result__dims">
+      Ширина: {{ variant.width_cm }} см · {{ length_m|floatformat:1 }} пог.м
+    </p>
+    <p class="calc-result__price">
+      <span id="calc-total-price">{{ total_price|price }}</span>
+    </p>
+  {% else %}
+    <p class="calc-result__empty">Оберіть ширину доріжки</p>
+  {% endif %}
+</div>

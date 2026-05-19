@@ -1,0 +1,48 @@
+/*
+ * pages/catalog.css — section, facet, search сторінки
+ */
+
+/* Спільний заголовок каталогу */
+.catalog-title {
+  margin-bottom: var(--sp-5);
+}
+
+/* Лоадер фільтра */
+.filter-loader {
+  text-align: center;
+  padding: var(--sp-4);
+}
+
+.filter-loader__icon {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+/* SEO-текст знизу сторінки */
+.catalog-seo-text {
+  margin-top: var(--sp-10);
+  max-width: 800px;
+}
+
+/* Search */
+.search-title {
+  margin-bottom: var(--sp-5);
+}
+
+.search-form {
+  margin-bottom: var(--sp-6);
+}
+
+.search-form__row {
+  display: flex;
+  gap: var(--sp-3);
+  max-width: 500px;
+}
+
+.search-results-count {
+  margin-bottom: var(--sp-4);
+}
+
+.search-results__link {
+  color: var(--c-accent);
+}

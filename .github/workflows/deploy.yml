@@ -1,0 +1,43 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            set -e
+            cd /var/www/kylymy
+
+            # Pull latest code
+            git pull origin main
+
+            # Activate venv
+            source .venv/bin/activate
+
+            # Install/update dependencies
+            pip install -r requirements/prod.txt -q
+
+            # Apply migrations
+            python manage.py migrate --settings=kylymy.settings.prod --noinput
+
+            # Collect static
+            python manage.py collectstatic --settings=kylymy.settings.prod --noinput -v 0
+
+            # Reload gunicorn gracefully
+            sudo systemctl reload gunicorn-kylymy
+
+            echo "✅ Deploy completed at $(date)"

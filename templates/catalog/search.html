@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/catalog.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <h1 class="search-title">Пошук: "{{ query }}"</h1>
+
+    <form action="{% url 'catalog:search' %}" method="get" class="search-form">
+      <div class="search-form__row">
+        <input type="search" name="q" value="{{ query }}" placeholder="Пошук товарів..." class="input" autofocus>
+        <button type="submit" class="btn btn-primary">Шукати</button>
+      </div>
+    </form>
+
+    {% if query %}
+      <p class="text-muted search-results-count">
+        {% if total_count %}
+          Знайдено: {{ total_count }} товарів
+        {% else %}
+          Нічого не знайдено
+        {% endif %}
+      </p>
+
+      <div class="product-grid">
+        {% for series in series_list %}
+          {% include "catalog/partials/product_card.html" with series=series %}
+        {% empty %}
+          <div class="product-grid__empty">
+            <p>Спробуйте інший запит або <a href="{% url 'catalog:section' 'kylymy' %}" class="search-results__link">перегляньте весь каталог</a></p>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% include "catalog/partials/pagination.html" %}
+    {% endif %}
+  </div>
+{% endblock %}

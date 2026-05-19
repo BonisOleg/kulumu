@@ -1,0 +1,38 @@
+{% load static kylymy_ui %}
+<header class="header" role="banner">
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="Kylymy — головна">
+      Kylym<span>y</span>
+    </a>
+
+    <nav class="header__nav" aria-label="Основна навігація">
+      {% for section in sections %}
+        <a href="{{ section.get_absolute_url }}"
+           class="header__nav-link {% if request.path|startswith:section.get_absolute_url %}active{% endif %}">
+          {{ section.name }}
+        </a>
+      {% endfor %}
+      <a href="{% url 'catalog:search' %}" class="header__nav-link">Пошук</a>
+    </nav>
+
+    <div class="header__actions">
+      <a href="tel:{{ site_settings.phone }}" class="header__phone" aria-label="Зателефонувати">
+        {{ site_settings.phone_display }}
+      </a>
+
+      <a href="{% url 'cart:cart' %}" class="header__cart-btn" aria-label="Кошик ({{ cart_count }} товарів)">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        {% if cart_count > 0 %}
+          <span class="header__cart-count" id="cart-count">{{ cart_count }}</span>
+        {% endif %}
+      </a>
+
+      <button class="header__menu-btn"
+              aria-label="Відкрити меню"
+              data-drawer-open
+              type="button">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+</header>

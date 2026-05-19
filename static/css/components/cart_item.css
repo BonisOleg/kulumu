@@ -1,0 +1,86 @@
+/*
+ * components/cart_item.css — рядок кошика + порожній стан + підсумок
+ */
+
+.cart-item {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+}
+
+.cart-item__img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+}
+
+.cart-item__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item__name {
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+}
+
+.cart-item__meta {
+  margin-top: var(--sp-1);
+}
+
+.cart-item__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-2);
+}
+
+.cart-item__delete {
+  color: var(--c-danger);
+}
+
+.cart-item__delete-icon {
+  font-size: 18px;
+}
+
+.cart-item__form {
+  display: inline;
+}
+
+/* Total row */
+.cart-total {
+  margin-top: var(--sp-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-total__sum {
+  font-size: var(--fs-xl);
+  margin-left: var(--sp-2);
+}
+
+/* Empty cart */
+.cart-empty {
+  text-align: center;
+  padding: var(--sp-12) var(--sp-4);
+}
+
+.cart-empty__icon {
+  font-size: 80px;
+  color: var(--c-border-strong);
+  display: block;
+  margin-bottom: var(--sp-4);
+}
+
+.cart-empty__link {
+  margin-top: var(--sp-5);
+}

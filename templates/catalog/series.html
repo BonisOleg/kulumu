@@ -1,0 +1,186 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format kylymy_ui kylymy_seo %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/series.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/variant_block.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/calc_result.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm" data-tabs-root>
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      {% for name, url in breadcrumbs %}
+        {% if not forloop.last %}
+          <span class="breadcrumbs__item"><a href="{{ url }}">{{ name }}</a><span class="breadcrumbs__sep" aria-hidden="true">/</span></span>
+        {% else %}
+          <span class="breadcrumbs__current" aria-current="page">{{ name }}</span>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="series-layout">
+      {# Gallery #}
+      <div class="series-gallery">
+        {% with primary=series.primary_image %}
+          {% if primary %}
+            <picture>
+              {% if primary.image_webp %}
+                <source srcset="{{ primary.image_webp.url }}" type="image/webp">
+              {% endif %}
+              <img src="{{ primary.image.url }}"
+                   alt="{{ primary.alt|default:series.name }}"
+                   class="series-gallery__main"
+                   width="800" height="600"
+                   fetchpriority="high">
+            </picture>
+          {% endif %}
+        {% endwith %}
+
+        <div class="series-gallery__thumbs">
+          {% for img in series.images.all %}
+            <button type="button" class="series-gallery__thumb-btn" data-full="{{ img.image.url }}">
+              <img src="{{ img.image_thumb.url|default:img.image.url }}"
+                   alt="{{ img.alt|default:series.name }}"
+                   width="80" height="60"
+                   loading="lazy">
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      {# Info #}
+      <div class="series-info">
+        <h1 class="series-info__title">{{ series.name }}</h1>
+
+        {% product_badge series %}
+
+        {% include "catalog/partials/variant_block.html" with series=series variant=selected_variant %}
+
+        {# Кольори #}
+        {% if all_colors %}
+          <div class="variant-picker">
+            <p class="text-sm text-muted variant-picker__label">Колір:</p>
+            <div class="variant-picker__row">
+              {% for c in all_colors %}
+                <button type="button"
+                        class="filter-color-swatch {% if selected_variant.color_id == c.color__id %}active{% endif %}"
+                        data-color="{{ c.color__color_hex|default:'#ccc' }}"
+                        title="{{ c.color__name }}"
+                        data-color-id="{{ c.color__id }}"
+                        aria-label="{{ c.color__name }}"
+                        aria-pressed="{% if selected_variant.color_id == c.color__id %}true{% else %}false{% endif %}">
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {# Розміри #}
+        {% if all_sizes %}
+          <div class="variant-picker">
+            <p class="text-sm text-muted variant-picker__label">Розмір:</p>
+            <div class="variant-picker__row">
+              {% for v in all_sizes %}
+                <button type="button"
+                        class="btn btn-secondary btn-sm {% if selected_variant.id == v.id %}btn-primary{% endif %}"
+                        data-size-variant-id="{{ v.id }}"
+                        aria-pressed="{% if selected_variant.id == v.id %}true{% else %}false{% endif %}">
+                  {{ v.width_cm }}{% if v.length_cm %}×{{ v.length_cm }}{% else %} пог.м{% endif %} см
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+        {# Переваги #}
+        <div class="series-usp">
+          <div class="series-usp__item">
+            <span class="material-symbols-outlined series-usp__icon">local_shipping</span>
+            Безкоштовна доставка від {{ site_settings.free_delivery_threshold|price }}
+          </div>
+          <div class="series-usp__item">
+            <span class="material-symbols-outlined series-usp__icon">replay</span>
+            Повернення {{ site_settings.return_days }} днів
+          </div>
+        </div>
+
+        {# Desktop CTA #}
+        {% if selected_variant %}
+          <form method="post" action="{% url 'cart:add' %}"
+                class="series-cta-form"
+                id="add-to-cart-form-desktop"
+                hx-post="{% url 'cart:add' %}"
+                hx-target="#toast-container"
+                hx-swap="innerHTML">
+            {% csrf_token %}
+            <input type="hidden" name="qty" value="1">
+            <button type="submit" class="btn btn-primary btn-lg btn-full" id="add-to-cart-btn">
+              <span class="material-symbols-outlined">shopping_bag</span>
+              Додати до кошика
+            </button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+
+    {# Tabs: Опис / Характеристики / Догляд #}
+    <div class="series-tabs">
+      <div role="tablist" class="series-tabs__list">
+        <button role="tab" data-tab="descr" aria-selected="true" aria-controls="tab-descr"
+                class="series-tab-btn">Опис</button>
+        <button role="tab" data-tab="specs" aria-selected="false" aria-controls="tab-specs"
+                class="series-tab-btn">Характеристики</button>
+        <button role="tab" data-tab="care" aria-selected="false" aria-controls="tab-care"
+                class="series-tab-btn">Догляд</button>
+      </div>
+
+      <div id="tab-descr" role="tabpanel" aria-selected="true" class="series-tab-panel rich-text">
+        {{ series.full_descr|default:series.short_descr|safe }}
+      </div>
+
+      <div id="tab-specs" role="tabpanel" aria-selected="false" class="series-tab-panel series-tab-panel--specs">
+        <table class="specs-table">
+          {% if series.composition %}<tr><td class="specs-table__label">Склад</td><td class="specs-table__value">{{ series.composition }}</td></tr>{% endif %}
+          {% if series.pile_height_mm %}<tr><td class="specs-table__label">Висота ворсу</td><td class="specs-table__value">{{ series.pile_height_mm }} мм</td></tr>{% endif %}
+          {% if series.base_material %}<tr><td class="specs-table__label">Основа</td><td class="specs-table__value">{{ series.base_material }}</td></tr>{% endif %}
+          {% if series.country %}<tr><td class="specs-table__label">Країна-виробник</td><td class="specs-table__value">{{ series.country }}</td></tr>{% endif %}
+          {% if series.weight_per_m2 %}<tr><td class="specs-table__label">Вага</td><td class="specs-table__value">{{ series.weight_per_m2 }} г/м²</td></tr>{% endif %}
+        </table>
+      </div>
+
+      <div id="tab-care" role="tabpanel" aria-selected="false" class="series-tab-panel rich-text">
+        {{ series.care_instructions|default:"<p>Регулярно пилососьте. Плями видаляйте одразу вологою серветкою. Не прати в пральній машині.</p>"|safe }}
+      </div>
+    </div>
+
+    {# Схожі товари #}
+    {% if related_series %}
+      <section class="series-related">
+        <h2 class="series-related__title">Схожі моделі</h2>
+        <div class="product-grid">
+          {% for related in related_series %}
+            {% include "catalog/partials/product_card.html" with series=related %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </div>
+
+  {# Mobile sticky CTA #}
+  <div class="cta-bar">
+    {% if selected_variant %}
+      <button type="button" class="btn btn-primary btn-full btn-lg"
+              id="cta-bar-add-btn"
+              hx-post="{% url 'cart:add' %}"
+              hx-include="#active-variant-for-cart"
+              hx-vals='{"qty": "1"}'
+              hx-target="#toast-container"
+              hx-swap="innerHTML">
+        <span class="material-symbols-outlined">shopping_bag</span>
+        <span id="cta-bar-add-label">Додати до кошика — {{ selected_variant.price_uah|price }}</span>
+      </button>
+    {% endif %}
+  </div>
+
+{% endblock %}

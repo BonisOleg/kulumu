@@ -1,0 +1,68 @@
+/*
+ * 4_layout.css — глобальний layout: wrapper, container, grid-система
+ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--vh);
+}
+
+.page-main {
+  flex: 1;
+  padding-top: var(--header-h);
+}
+
+.section-gap {
+  padding-block: var(--sp-8);
+}
+
+.section-gap-sm {
+  padding-block: var(--sp-5);
+}
+
+/* Two-column layout: content + sidebar */
+.layout-catalog {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 960px) {
+  .layout-catalog {
+    grid-template-columns: 280px 1fr;
+    gap: var(--sp-6);
+  }
+}
+
+/* Sticky sidebar */
+.sidebar-sticky {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-4));
+  max-height: calc(var(--vh) - var(--header-h) - var(--sp-8));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Stack (вертикально) */
+.stack > * + * {
+  margin-top: var(--sp-4);
+}
+
+.stack-sm > * + * {
+  margin-top: var(--sp-2);
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid var(--c-border);
+  margin-block: var(--sp-5);
+}

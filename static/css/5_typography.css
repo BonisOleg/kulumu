@@ -1,0 +1,66 @@
+/*
+ * 5_typography.css — заголовки, параграфи, списки, цитати
+ */
+
+h1, .h1 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+}
+
+h3, .h3 {
+  font-family: var(--ff-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+}
+
+p {
+  margin-bottom: var(--sp-4);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.text-sm { font-size: var(--fs-sm); }
+.text-xs { font-size: var(--fs-xs); }
+.text-lg { font-size: var(--fs-lg); }
+.text-muted { color: var(--c-text-secondary); }
+.text-accent { color: var(--c-accent); }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.font-bold { font-weight: var(--fw-bold); }
+.font-semibold { font-weight: var(--fw-semibold); }
+.font-medium { font-weight: var(--fw-medium); }
+
+/* Rich-text контент (блог, сторінки) */
+.rich-text h2 { margin-top: var(--sp-6); margin-bottom: var(--sp-3); }
+.rich-text h3 { margin-top: var(--sp-5); margin-bottom: var(--sp-2); }
+.rich-text p { margin-bottom: var(--sp-4); line-height: var(--lh-relaxed); }
+.rich-text ul, .rich-text ol {
+  padding-left: var(--sp-5);
+  margin-bottom: var(--sp-4);
+  list-style: disc;
+}
+.rich-text ol { list-style: decimal; }
+.rich-text a { color: var(--c-accent); text-decoration: underline; }
+.rich-text a:hover { color: var(--c-accent-dark); }
+.rich-text img { border-radius: var(--r-md); margin-block: var(--sp-4); }
+.rich-text blockquote {
+  border-left: 3px solid var(--c-accent);
+  padding-left: var(--sp-4);
+  color: var(--c-text-secondary);
+  font-style: italic;
+  margin-block: var(--sp-4);
+}

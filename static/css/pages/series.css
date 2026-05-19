@@ -1,0 +1,134 @@
+/*
+ * pages/series.css — сторінка серії (картка товару)
+ */
+
+.series-layout {
+  display: grid;
+  gap: var(--sp-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+  .series-layout {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+@media (min-width: 960px) {
+  .series-layout {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.series-gallery__main {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-lg);
+}
+
+.series-gallery__thumbs {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.series-gallery__thumb-btn {
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--t-fast);
+  min-height: 44px;
+}
+
+.series-gallery__thumb-btn:hover,
+.series-gallery__thumb-btn.active {
+  border-color: var(--c-accent);
+}
+
+.series-gallery__thumb-btn img {
+  display: block;
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+}
+
+.series-info {
+  padding-block: var(--sp-2);
+}
+
+.series-info__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-3);
+}
+
+/* Tabs */
+.series-tabs {
+  margin-top: var(--sp-8);
+}
+
+.series-tabs__list {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--c-border);
+  margin-bottom: var(--sp-5);
+}
+
+.series-tab-btn {
+  padding: var(--sp-3) var(--sp-4);
+  font-weight: var(--fw-medium);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: border-color var(--t-fast), color var(--t-fast);
+  cursor: pointer;
+  color: var(--c-text-secondary);
+}
+
+.series-tab-btn[aria-selected="true"] {
+  border-bottom-color: var(--c-accent);
+  color: var(--c-accent);
+}
+
+.series-tab-panel {
+  display: none;
+  max-width: 800px;
+}
+
+.series-tab-panel--specs {
+  max-width: 600px;
+}
+
+.series-tab-panel[aria-selected="true"] {
+  display: block;
+}
+
+/* Specs table */
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specs-table__label {
+  padding: var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+  color: var(--c-text-muted);
+  width: 45%;
+}
+
+.specs-table__value {
+  padding: var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+}
+
+/* Related section */
+.series-related {
+  margin-top: var(--sp-10);
+}
+
+.series-related__title {
+  margin-bottom: var(--sp-5);
+}

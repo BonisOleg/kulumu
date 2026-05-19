@@ -1,0 +1,17 @@
+Django>=5.1,<6.0
+django-environ>=0.11
+django-unfold>=0.40
+django-modeltranslation>=0.18
+django-tinymce>=4.0
+django-htmx>=1.19
+psycopg[binary]>=3.1
+redis>=5.0
+django-redis>=5.4
+gunicorn>=22.0
+whitenoise>=6.7
+Pillow>=10.4
+python-slugify[unidecode]>=8.0
+beautifulsoup4>=4.12
+markdown>=3.6
+requests>=2.31
+django-admin-sortable2>=2.1

@@ -1,0 +1,134 @@
+/*
+ * components/footer.css — підвал сайту
+ */
+
+.footer {
+  background: var(--c-text);
+  color: #e5e7eb;
+  padding-top: var(--sp-8);
+  padding-bottom: max(var(--sp-8), var(--safe-bottom));
+  margin-top: auto;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 600px) {
+  .footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .footer__grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+}
+
+.footer__brand {
+  font-family: var(--ff-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: #fff;
+  margin-bottom: var(--sp-3);
+}
+
+.footer__brand span {
+  color: var(--c-accent-light);
+}
+
+.footer__tagline {
+  font-size: var(--fs-sm);
+  color: #9ca3af;
+  margin-bottom: var(--sp-4);
+}
+
+.footer__contact a {
+  display: block;
+  font-size: var(--fs-sm);
+  color: #e5e7eb;
+  margin-bottom: var(--sp-2);
+}
+
+.footer__contact a:hover {
+  color: var(--c-accent-light);
+}
+
+.footer__col-title {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  margin-bottom: var(--sp-3);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.footer__links a {
+  font-size: var(--fs-sm);
+  color: #d1d5db;
+  transition: color var(--t-fast);
+}
+
+.footer__links a:hover {
+  color: var(--c-accent-light);
+}
+
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+  color: #6b7280;
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-sm);
+  color: #e5e7eb;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+.footer__social-link:hover {
+  background: var(--c-accent);
+  color: #fff;
+}
+
+.footer__workhours {
+  font-size: var(--fs-xs);
+  color: #6b7280;
+}
+
+.footer__callback-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  color: inherit;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  padding: 0;
+  min-height: auto;
+}

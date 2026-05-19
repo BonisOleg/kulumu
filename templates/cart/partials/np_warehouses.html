@@ -1,0 +1,12 @@
+{% if warehouses %}
+  <div class="np-dropdown">
+    {% for warehouse in warehouses %}
+      <button type="button"
+              class="np-dropdown__item"
+              data-np-warehouse-address="{{ warehouse.address }}"
+              data-np-warehouse-ref="{{ warehouse.ref }}">
+        {{ warehouse.address }}
+      </button>
+    {% endfor %}
+  </div>
+{% endif %}

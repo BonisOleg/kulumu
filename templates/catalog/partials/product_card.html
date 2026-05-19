@@ -1,0 +1,45 @@
+{% load static kylymy_format kylymy_ui %}
+{% with img=series.primary_image %}
+  <article class="product-card">
+    <a href="{{ series.get_absolute_url }}" class="product-card__image-wrap" tabindex="-1" aria-hidden="true">
+      {% if img %}
+        <picture>
+          {% if img.image_webp %}
+            <source srcset="{{ img.image_webp.url }}" type="image/webp">
+          {% endif %}
+          <img
+            src="{{ img.image.url }}"
+            alt="{{ img.alt|default:series.name }}"
+            class="product-card__image"
+            loading="lazy"
+            width="400"
+            height="300">
+        </picture>
+      {% else %}
+        <div class="product-card__no-image">
+          <span class="material-symbols-outlined product-card__no-image-icon">image_not_supported</span>
+        </div>
+      {% endif %}
+
+      <div class="product-card__badges">
+        {% product_badge series %}
+      </div>
+    </a>
+
+    <div class="product-card__body">
+      <a href="{{ series.get_absolute_url }}" class="product-card__name">{{ series.name }}</a>
+
+      <div class="product-card__price-row">
+        <span class="product-card__price">від {{ series.min_price_ann|default:0|price }}</span>
+      </div>
+
+      {% if series.in_stock_variants %}
+        <span class="product-card__stock">В наявності</span>
+      {% endif %}
+
+      <a href="{{ series.get_absolute_url }}" class="btn btn-secondary btn-sm btn-full product-card__btn">
+        Детальніше
+      </a>
+    </div>
+  </article>
+{% endwith %}

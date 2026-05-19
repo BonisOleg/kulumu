@@ -1,0 +1,76 @@
+/*
+ * components/modal.css — модальний діалог (callback, success)
+ */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+
+.modal--open {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal__dialog {
+  position: relative;
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-xl);
+}
+
+.modal__dialog--sm {
+  max-width: 380px;
+  padding: var(--sp-8);
+  text-align: center;
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--sp-4);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-sm);
+  color: var(--c-text-muted);
+  transition: background var(--t-fast);
+}
+
+.modal__close:hover {
+  background: var(--c-bg-alt);
+}
+
+.modal__title {
+  margin-bottom: var(--sp-2);
+}
+
+.modal__subtitle {
+  margin-bottom: var(--sp-5);
+}
+
+.modal__footer {
+  margin-top: var(--sp-5);
+}
+
+.modal__success-icon {
+  font-size: 64px;
+  color: var(--c-success);
+  display: block;
+  margin-bottom: var(--sp-4);
+}

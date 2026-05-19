@@ -1,0 +1,20 @@
+Ваше замовлення #{{ order.pk }} прийнято!
+
+Дякуємо, {{ order.name }}!
+
+Деталі замовлення:
+{% for item in order.items.all %}
+- {{ item.series_name }} | {{ item.color_name }} | {{ item.size_display }} x{{ item.quantity }} — {{ item.price_uah }} ₴
+{% endfor %}
+
+Загальна сума: {{ order.total_uah }} ₴
+
+Спосіб доставки: {{ order.get_delivery_type_display }}
+Спосіб оплати: {{ order.get_payment_type_display }}
+Місто: {{ order.np_city_name }}
+Відділення: {{ order.np_warehouse_address }}
+
+Ми зателефонуємо вам для підтвердження найближчим часом.
+
+З повагою,
+Kylymy — інтернет-магазин килимів

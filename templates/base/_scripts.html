@@ -1,0 +1,11 @@
+{% load static %}
+<script src="{% static 'django_htmx/htmx.min.js' %}" defer></script>
+<script type="module" src="{% static 'js/main.js' %}" defer></script>
+
+{# GTM noscript #}
+{% if site_settings.gtm_id %}
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id={{ site_settings.gtm_id }}"
+            height="0" width="0" class="gtm-noscript" title="GTM"></iframe>
+  </noscript>
+{% endif %}

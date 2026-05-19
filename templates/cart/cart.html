@@ -1,0 +1,19 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format %}
+
+{% block title %}Кошик | Kylymy{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/cart.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/cart_item.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <h1 class="cart-page-title">Кошик</h1>
+
+    <div id="cart-items">
+      {% include "cart/partials/cart_items.html" %}
+    </div>
+  </div>
+{% endblock %}

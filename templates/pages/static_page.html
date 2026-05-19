@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/static_page.css' %}">
+{% endblock %}
+
+{% block title %}{% if page %}{{ page.seo_title|default:page.title }}{% else %}{{ page_title_fallback }}{% endif %} | Kylymy{% endblock %}
+{% block description %}{% if page %}{{ page.seo_description }}{% endif %}{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти">
+      <span class="breadcrumbs__item"><a href="/">Головна</a><span class="breadcrumbs__sep">/</span></span>
+      <span class="breadcrumbs__current" aria-current="page">{% if page %}{{ page.title }}{% else %}{{ page_title_fallback }}{% endif %}</span>
+    </nav>
+
+    {% if page %}
+      <article class="static-article">
+        <h1 class="static-article__title">{{ page.title }}</h1>
+        <div class="rich-text">
+          {{ page.body|safe }}
+        </div>
+      </article>
+    {% else %}
+      <div class="page-placeholder">
+        <h1 class="page-placeholder__title">{{ page_title_fallback }}</h1>
+        <p class="page-placeholder__text">Сторінка зовсім скоро з'явиться. Якщо у вас є питання — <a href="/">повертайтесь на головну</a> або зв'яжіться з нами.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

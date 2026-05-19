@@ -1,0 +1,91 @@
+/*
+ * components/variant_block.css — блок ціни та наявності варіанту
+ */
+
+.variant-block {
+  margin-top: var(--sp-4);
+}
+
+.variant-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+
+.variant-price__current {
+  font-size: 2rem;
+  font-weight: var(--fw-bold);
+  color: var(--c-text);
+}
+
+.variant-price__old {
+  font-size: var(--fs-lg);
+  color: var(--c-text-muted);
+  text-decoration: line-through;
+}
+
+.variant-stock {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: var(--fs-sm);
+  margin-top: var(--sp-2);
+}
+
+.variant-stock__icon {
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.variant-stock--in  { color: var(--c-success); }
+.variant-stock--out { color: var(--c-danger); }
+
+.variant-sku {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+  margin-top: var(--sp-1);
+}
+
+.variant-empty {
+  margin-top: var(--sp-4);
+}
+
+/* Кольори та розміри — wrapper row */
+.variant-picker {
+  margin-top: var(--sp-4);
+}
+
+.variant-picker__label {
+  margin-bottom: var(--sp-2);
+}
+
+.variant-picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* USP list (переваги під CTA) */
+.series-usp {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+}
+
+.series-usp__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+
+.series-usp__icon {
+  color: var(--c-success);
+  font-size: 18px;
+}
+
+/* Add-to-cart form wrapper */
+.series-cta-form {
+  margin-top: var(--sp-5);
+}

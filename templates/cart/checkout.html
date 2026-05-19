@@ -1,0 +1,105 @@
+{% extends "base/base.html" %}
+{% load static kylymy_format %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/cart.css' %}">
+  <link rel="stylesheet" href="{% static 'css/components/np_dropdown.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <h1 class="checkout-title">Оформлення замовлення</h1>
+
+    <div class="checkout-layout">
+      <form method="post" class="stack checkout-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label class="form-label">{{ form.name.label }}</label>
+          {{ form.name }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ form.phone.label }}</label>
+          {{ form.phone }}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ form.email.label }} (необов'язково)</label>
+          {{ form.email }}
+        </div>
+
+        <hr class="divider">
+        <h3>Доставка</h3>
+        <div class="form-group">
+          <label class="form-label">{{ form.delivery_type.label }}</label>
+          {% for radio in form.delivery_type %}
+            <label class="radio-item">
+              {{ radio.tag }}
+              <span>{{ radio.choice_label }}</span>
+            </label>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ form.np_city_name.label }}</label>
+          <div class="checkout-np-wrap">
+            {{ form.np_city_name }}
+            {{ form.np_city_ref }}
+            <div hx-get="{% url 'cart:htmx_cities' %}"
+                 hx-trigger="keyup changed delay:400ms from:[name='np_city_name']"
+                 hx-target="next div"
+                 hx-swap="innerHTML"
+                 hx-include="[name='np_city_name']">
+            </div>
+            <div id="city-suggestions"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ form.np_warehouse_address.label }}</label>
+          {{ form.np_warehouse_address }}
+          {{ form.np_warehouse_ref }}
+        </div>
+
+        <hr class="divider">
+        <h3>Оплата</h3>
+        <div class="form-group">
+          {% for radio in form.payment_type %}
+            <label class="radio-item">
+              {{ radio.tag }}
+              <span>{{ radio.choice_label }}</span>
+            </label>
+          {% endfor %}
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">{{ form.note.label }}</label>
+          {{ form.note }}
+        </div>
+
+        <div class="order-summary">
+          <div class="order-summary__row">
+            <span class="text-muted">Товарів:</span>
+            <span>{{ items|length }} шт.</span>
+          </div>
+          <div class="order-summary__row">
+            <span class="text-muted">Доставка:</span>
+            <span>Розраховується при отриманні</span>
+          </div>
+          <div class="order-summary__total">
+            <span>Разом:</span>
+            <span>{{ total|price }}</span>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg">
+          <span class="material-symbols-outlined">check_circle</span>
+          Підтвердити замовлення
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

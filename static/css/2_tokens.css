@@ -1,0 +1,126 @@
+/*
+ * 2_tokens.css — CSS змінні (design tokens)
+ * Без !important, mobile-first, iOS Safari safe-area підтримка
+ */
+
+:root {
+  /* Viewport — iOS Safari */
+  --vh: 100dvh;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Кольори */
+  --c-bg: #fafaf7;
+  --c-bg-alt: #f4f0eb;
+  --c-surface: #ffffff;
+  --c-surface-raised: #ffffff;
+
+  --c-text: #1a1a1a;
+  --c-text-secondary: #4b5563;
+  --c-text-muted: #9ca3af;
+  --c-text-inverse: #ffffff;
+
+  --c-border: #e6e2dc;
+  --c-border-strong: #d1c9c0;
+
+  --c-accent: #b48a5e;
+  --c-accent-light: #d4a97a;
+  --c-accent-dark: #9d7244;
+  --c-accent-bg: #f9f3ec;
+
+  --c-danger: #c44343;
+  --c-danger-light: #fee2e2;
+  --c-success: #4f8a4a;
+  --c-success-light: #dcfce7;
+  --c-warning: #d97706;
+  --c-info: #0891b2;
+
+  /* Badge кольори */
+  --c-badge-new: #4f8a4a;
+  --c-badge-top: #b48a5e;
+  --c-badge-discount: #c44343;
+
+  /* Типографіка */
+  --ff-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", system-ui, sans-serif;
+  --ff-display: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --ff-mono: "SF Mono", "Fira Code", Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-h3: clamp(1.125rem, 2vw, 1.375rem);
+  --fs-h2: clamp(1.375rem, 2.5vw, 1.75rem);
+  --fs-h1: clamp(1.5rem, 4vw, 2.25rem);
+
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.2;
+  --lh-snug: 1.375;
+  --lh-base: 1.5;
+  --lh-relaxed: 1.625;
+
+  /* Відступи */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-8: 3rem;
+  --sp-10: 4rem;
+  --sp-12: 5rem;
+
+  /* Бордер-радіус */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 9999px;
+
+  /* Тіні */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 24px 60px rgba(0, 0, 0, 0.16);
+
+  /* Transitions */
+  --t-fast: 150ms ease;
+  --t-base: 250ms ease;
+  --t-slow: 400ms ease;
+
+  /* Layout */
+  --container-max: 1440px;
+  --container-pad: var(--sp-4);
+  --header-h: 64px;
+
+  /* Z-index layers */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-drawer: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --container-pad: var(--sp-5);
+    --header-h: 72px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --container-pad: var(--sp-8);
+  }
+}

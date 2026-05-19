@@ -1,0 +1,38 @@
+/*
+ * components/breadcrumbs.css
+ */
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  padding-block: var(--sp-3);
+}
+
+.breadcrumbs__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.breadcrumbs__item a {
+  color: var(--c-text-secondary);
+  transition: color var(--t-fast);
+}
+
+.breadcrumbs__item a:hover {
+  color: var(--c-accent);
+}
+
+.breadcrumbs__sep {
+  color: var(--c-border-strong);
+  user-select: none;
+}
+
+.breadcrumbs__current {
+  color: var(--c-text);
+  font-weight: var(--fw-medium);
+}

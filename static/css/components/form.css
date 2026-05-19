@@ -1,0 +1,95 @@
+/*
+ * components/form.css — поля форм
+ * iOS Safari: font-size 16px щоб не зумило
+ */
+
+.input,
+.select,
+.textarea {
+  display: block;
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: var(--lh-base);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px rgba(180, 138, 94, 0.18);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--c-text-muted);
+}
+
+.input.error,
+.select.error,
+.textarea.error {
+  border-color: var(--c-danger);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-text-secondary);
+  margin-bottom: var(--sp-2);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.form-error {
+  font-size: var(--fs-xs);
+  color: var(--c-danger);
+}
+
+.form-hint {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+}
+
+/* Radio группа */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+
+.radio-item:hover {
+  border-color: var(--c-accent);
+  background: var(--c-accent-bg);
+}
+
+.radio-item input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  min-height: auto;
+  accent-color: var(--c-accent);
+}

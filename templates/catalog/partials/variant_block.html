@@ -1,0 +1,30 @@
+{% load kylymy_format %}
+<div id="variant-block"
+     hx-get="{% url 'catalog:htmx_variant' series.pk %}"
+     hx-swap="outerHTML"
+     data-htmx-url="{% url 'catalog:htmx_variant' series.pk %}"
+     {% if variant %}data-cta-price-label="Додати до кошика — {{ variant.price_uah|price }}"{% endif %}>
+  {% if variant %}
+    <input type="hidden" id="active-variant-for-cart" form="add-to-cart-form-desktop" name="variant_id" value="{{ variant.id }}">
+    <div class="variant-block">
+      <div class="variant-price">
+        <span class="variant-price__current">{{ variant.price_uah|price }}</span>
+        {% if variant.old_price_uah %}
+          <span class="variant-price__old">{{ variant.old_price_uah|price }}</span>
+          <span class="badge badge-discount">-{{ variant.discount_percent }}%</span>
+        {% endif %}
+      </div>
+
+      <p class="variant-stock {% if variant.in_stock %}variant-stock--in{% else %}variant-stock--out{% endif %}">
+        <span class="material-symbols-outlined variant-stock__icon">
+          {% if variant.in_stock %}check_circle{% else %}cancel{% endif %}
+        </span>
+        {% if variant.ready_to_ship %}Готово до відправки{% elif variant.in_stock %}В наявності{% else %}Немає в наявності{% endif %}
+      </p>
+
+      <p class="variant-sku">Артикул: {{ variant.sku }}</p>
+    </div>
+  {% else %}
+    <p class="text-muted variant-empty">Оберіть колір та розмір</p>
+  {% endif %}
+</div>

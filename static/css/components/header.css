@@ -1,0 +1,132 @@
+/*
+ * components/header.css — шапка сайту
+ * Sticky на desktop, iOS safe-area підтримка
+ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--c-border);
+  z-index: var(--z-sticky);
+  padding-top: var(--safe-top);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  height: 100%;
+}
+
+.header__logo {
+  flex-shrink: 0;
+  font-family: var(--ff-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+}
+
+.header__logo span {
+  color: var(--c-accent);
+}
+
+.header__nav {
+  display: none;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+}
+
+.header__phone {
+  display: none;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--c-text);
+  white-space: nowrap;
+}
+
+.header__cart-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--c-text);
+  border-radius: var(--r-sm);
+  transition: background var(--t-fast);
+}
+
+.header__cart-btn:hover {
+  background: var(--c-bg-alt);
+}
+
+.header__cart-count {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  background: var(--c-accent);
+  color: var(--c-text-inverse);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  border-radius: var(--r-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 4px;
+}
+
+.header__menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--c-text);
+}
+
+@media (min-width: 960px) {
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+    flex: 1;
+  }
+
+  .header__nav-link {
+    padding: var(--sp-2) var(--sp-3);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--c-text-secondary);
+    border-radius: var(--r-sm);
+    transition: color var(--t-fast), background var(--t-fast);
+    white-space: nowrap;
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link.active {
+    color: var(--c-text);
+    background: var(--c-bg-alt);
+  }
+
+  .header__phone {
+    display: block;
+  }
+
+  .header__menu-btn {
+    display: none;
+  }
+}

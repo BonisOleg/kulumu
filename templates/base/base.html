@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{ request.LANGUAGE_CODE|default:'uk' }}" dir="ltr">
+  <head>
+    {% include "base/_head.html" %}
+    <title>{% block title %}{{ page_title|default:site_settings.site_title }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ page_description|default:site_settings.site_description }}{% endblock %}">
+    {% block extra_css %}{% endblock %}
+    {% block json_ld %}{% endblock %}
+  </head>
+  <body>
+    <div class="page-wrapper">
+      {% include "base/_header.html" %}
+      {% include "base/_drawer.html" %}
+
+      <main class="page-main" id="main-content">
+        {% block content %}{% endblock %}
+      </main>
+
+      {% include "base/_footer.html" %}
+    </div>
+
+    {% include "base/_scripts.html" %}
+
+    {% block extra_js %}{% endblock %}
+
+    {# HTMX toast placeholder #}
+    <div id="toast-container" aria-live="polite"></div>
+
+    {# Callback modal #}
+    {% include "leads/callback_modal.html" %}
+  </body>
+</html>

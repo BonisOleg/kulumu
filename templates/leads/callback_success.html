@@ -1,0 +1,13 @@
+{% load static %}
+<div id="callback-modal"
+     class="modal modal--open"
+     role="dialog" aria-modal="true">
+  <div class="modal-overlay" data-modal-close></div>
+
+  <div class="modal__dialog modal__dialog--sm">
+    <span class="material-symbols-outlined modal__success-icon">check_circle</span>
+    <h2 class="modal__title">Дякуємо, {{ name }}!</h2>
+    <p class="text-muted">Наш менеджер зателефонує вам найближчим часом у робочі години.</p>
+    <button type="button" data-modal-close class="btn btn-secondary modal__footer">Закрити</button>
+  </div>
+</div>

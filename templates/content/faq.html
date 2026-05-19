@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+{% load static kylymy_seo %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/pages/content.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container section-gap-sm">
+    <div class="faq-page">
+      <h1 class="faq-page-title">Питання та відповіді</h1>
+
+      {% regroup faq_items by category as grouped_faqs %}
+      {% for group in grouped_faqs %}
+        {% if group.grouper %}
+          <h2 class="faq-group-title">{{ group.grouper.name }}</h2>
+        {% endif %}
+
+        <div>
+          {% for item in group.list %}
+            <details class="faq-item" name="faq">
+              <summary class="faq-item__summary">
+                {{ item.question }}
+                <span class="material-symbols-outlined faq-item__icon">expand_more</span>
+              </summary>
+              <div class="faq-item__answer">
+                {{ item.answer|safe }}
+              </div>
+            </details>
+          {% endfor %}
+        </div>
+      {% empty %}
+        <p class="text-muted">FAQ незабаром з'явиться</p>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
