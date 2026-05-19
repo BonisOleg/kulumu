@@ -36,6 +36,3 @@ ignore = "H006,H030,H031"
 source = ["apps"]
 omit = ["*/tests/*", "*/migrations/*", "*/management/*"]
 
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.backends.legacy:build"

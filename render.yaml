@@ -37,8 +37,8 @@ services:
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
         sync: false
-      - key: CLOUDINARY_URL
-        sync: false
+
+      # Database & Cache
       - key: DATABASE_URL
         fromDatabase:
           name: kylymy-database
@@ -48,3 +48,51 @@ services:
           type: keyvalue
           name: kylymy-cache
           property: connectionString
+
+      # Media (Cloudinary — опційно; без змінної використовується файлова система)
+      - key: CLOUDINARY_URL
+        sync: false
+
+      # Email
+      - key: EMAIL_BACKEND
+        value: django.core.mail.backends.smtp.EmailBackend
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USE_TLS
+        value: "True"
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        value: noreply@kylymy.ua
+      - key: ADMIN_EMAIL
+        sync: false
+
+      # Telegram
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_ADMIN_CHAT_ID
+        sync: false
+
+      # Nova Poshta
+      - key: NOVA_POSHTA_API_KEY
+        sync: false
+
+      # LiqPay
+      - key: LIQPAY_PUBLIC_KEY
+        sync: false
+      - key: LIQPAY_PRIVATE_KEY
+        sync: false
+
+      # WayForPay
+      - key: WAYFORPAY_MERCHANT_ACCOUNT
+        sync: false
+      - key: WAYFORPAY_MERCHANT_SECRET
+        sync: false
+
+      # Sentry
+      - key: SENTRY_DSN
+        sync: false

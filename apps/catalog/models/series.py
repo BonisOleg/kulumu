@@ -105,7 +105,9 @@ class ProductSeries(models.Model):
             parts.append(f"виробництво {self.country}")
         if self.pile_height_mm:
             parts.append(f"висота ворсу {self.pile_height_mm} мм")
-        variants_count = self.variants.count()
+        # Use prefetch cache when available (avoids extra DB query on detail page)
+        _cache = getattr(self, "_prefetched_objects_cache", {})
+        variants_count = len(_cache["variants"]) if "variants" in _cache else self.variants.count()
         if variants_count:
             parts.append(f"{variants_count} розмірів")
         parts.append(f"від {self.min_price:,} ₴".replace(",", "\u00a0"))
