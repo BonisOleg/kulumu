@@ -88,3 +88,7 @@ else:
 
 # У Django 4.2+ пріоритет у STORAGES; прибираємо застарілий ключ з base
 globals().pop("STATICFILES_STORAGE", None)
+
+# WhiteNoise: лише зібрана статика з STATIC_ROOT (не filesystem finders у runtime)
+WHITENOISE_USE_FINDERS = False
+WHITENOISE_MAX_AGE = 31536000

@@ -26,6 +26,15 @@ try:
     from django.core.management import call_command
     call_command('check')
     call_command('migrate', '--noinput')
+    call_command('collectstatic', '--noinput')
+    from pathlib import Path
+    from django.conf import settings
+    static_root = Path(settings.STATIC_ROOT)
+    static_count = sum(1 for _ in static_root.rglob('*') if _.is_file())
+    print(f'==> collectstatic OK: {static_count} files in {static_root}')
+    if static_count < 50:
+        print('FATAL: staticfiles/ майже порожня — CSS/JS не будуть доступні')
+        sys.exit(1)
     print('==> Django check OK, migrations applied')
 except Exception:
     traceback.print_exc(file=sys.stdout)
