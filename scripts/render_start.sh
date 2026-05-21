@@ -25,7 +25,8 @@ try:
     django.setup()
     from django.core.management import call_command
     call_command('check')
-    print('==> Django check OK')
+    call_command('migrate', '--noinput')
+    print('==> Django check OK, migrations applied')
 except Exception:
     traceback.print_exc(file=sys.stdout)
     sys.stdout.flush()

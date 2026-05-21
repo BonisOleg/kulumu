@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Kylymy">
+  <rect width="1200" height="630" fill="#f5f0e8"/>
+  <rect x="80" y="200" width="1040" height="230" rx="16" fill="#b48a5e"/>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="#fff">Kylymy</text>
+</svg>

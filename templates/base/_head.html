@@ -18,7 +18,7 @@
 <meta property="og:description" content="{{ page_description|default:site_settings.site_description }}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:site_name" content="Kylymy">
-<meta property="og:image" content="{% if og_image %}{{ og_image }}{% else %}{% static 'images/og-default.jpg' %}{% endif %}">
+<meta property="og:image" content="{% if og_image %}{{ og_image }}{% else %}{% static 'images/og-default.svg' %}{% endif %}">
 
 {# Twitter/X #}
 <meta name="twitter:card" content="summary_large_image">
@@ -27,7 +27,7 @@
 
 {# Favicon #}
 <link rel="icon" type="image/svg+xml" href="{% static 'admin/logo.svg' %}">
-<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+<link rel="apple-touch-icon" href="{% static 'admin/logo.svg' %}">
 <link rel="manifest" href="{% static 'manifest.json' %}">
 
 {# PWA theme color #}

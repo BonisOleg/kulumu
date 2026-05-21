@@ -49,8 +49,9 @@ if SENTRY_DSN:
     )
 
 # --- Статика (WhiteNoise) + медіа (локально або Cloudinary) ---
+# Без manifest: у репо немає частини static-файлів з шаблонів (og, favicon) — Manifest давав 500
 _WHITENOISE_STATICFILES = {
-    "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
 }
 _DISK_MEDIA = {
     "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -87,12 +88,3 @@ else:
 
 # У Django 4.2+ пріоритет у STORAGES; прибираємо застарілий ключ з base
 globals().pop("STATICFILES_STORAGE", None)
-
-# Без REDIS_URL (типово на Render без Key Value) — сесії в БД, кеш in-process
-if not os.environ.get("REDIS_URL", "").strip():
-    SESSION_ENGINE = "django.contrib.sessions.backends.db"
-    CACHES = {  # noqa: F405
-        "default": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        }
-    }
