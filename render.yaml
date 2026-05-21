@@ -22,7 +22,7 @@ services:
     region: frankfurt
     plan: starter
     buildCommand: bash scripts/render_build.sh
-    startCommand: gunicorn kylymy.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --error-logfile - --access-logfile - --log-level info
+    startCommand: bash scripts/render_start.sh
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION

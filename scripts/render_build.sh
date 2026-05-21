@@ -8,3 +8,7 @@ python -m pip install --upgrade pip
 pip install -r requirements/prod.txt
 
 python manage.py collectstatic --noinput
+
+if [ -n "${DATABASE_URL:-}" ]; then
+  python manage.py migrate --noinput
+fi

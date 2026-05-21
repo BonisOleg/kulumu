@@ -1,3 +1,4 @@
+import os
 from urllib.parse import urlparse
 
 from .base import *  # noqa: F401, F403
@@ -5,6 +6,15 @@ from .base import *  # noqa: F401, F403
 import sentry_sdk
 
 DEBUG = False
+
+# Render: ALLOWED_HOSTS / SITE_URL / CSRF з hostname сервісу (health check інакше 400)
+_render_host = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip()
+if _render_host:
+    _hosts = list(ALLOWED_HOSTS)  # noqa: F405
+    if _render_host not in _hosts:
+        ALLOWED_HOSTS = [*_hosts, _render_host]  # noqa: F405
+    if SITE_URL in ("http://localhost", "http://localhost:8000", ""):  # noqa: F405
+        SITE_URL = f"https://{_render_host}"  # noqa: F405
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
