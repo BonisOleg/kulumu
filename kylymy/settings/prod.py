@@ -57,7 +57,18 @@ _DISK_MEDIA = {
     "OPTIONS": {"location": str(MEDIA_ROOT)},  # noqa: F405
 }
 
-CLOUDINARY_URL = env("CLOUDINARY_URL", default="")  # noqa: F405
+# cloudinary пакет падає при імпорті, якщо CLOUDINARY_URL заданий але не cloudinary://
+_cloudinary_raw = env("CLOUDINARY_URL", default="").strip()  # noqa: F405
+CLOUDINARY_URL = (  # noqa: F405
+    _cloudinary_raw if _cloudinary_raw.startswith("cloudinary://") else ""
+)
+if _cloudinary_raw and not CLOUDINARY_URL:
+    import logging
+
+    logging.getLogger(__name__).warning(
+        "CLOUDINARY_URL is invalid (expected cloudinary://...); using disk media storage."
+    )
+
 if CLOUDINARY_URL:
     _sf = INSTALLED_APPS.index("django.contrib.staticfiles")  # noqa: F405
     for _app in ("cloudinary_storage", "cloudinary"):
@@ -76,3 +87,12 @@ else:
 
 # У Django 4.2+ пріоритет у STORAGES; прибираємо застарілий ключ з base
 globals().pop("STATICFILES_STORAGE", None)
+
+# Без REDIS_URL (типово на Render без Key Value) — сесії в БД, кеш in-process
+if not os.environ.get("REDIS_URL", "").strip():
+    SESSION_ENGINE = "django.contrib.sessions.backends.db"
+    CACHES = {  # noqa: F405
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
+    }
